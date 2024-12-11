@@ -31,7 +31,7 @@ export default function Interests({ data, setData }: InterestsProps) {
         관심사를 최대 3가지 선택하세요.
       </p>
 
-      <section className='mt-10 grid grid-cols-4 gap-3'>
+      <section className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3'>
         {interests.map(({ id, interest }) => {
           const isAdded = data.interests.some((el) => el.id === id);
 
@@ -41,7 +41,7 @@ export default function Interests({ data, setData }: InterestsProps) {
               onClick={() => toggleInterest(id)}
               variant='outline'
               className={cn(
-                'rounded-full',
+                'rounded-full min-w-max',
                 isAdded &&
                   'bg-primary hover:bg-primary/90 text-white hover:text-white'
               )}

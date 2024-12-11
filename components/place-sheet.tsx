@@ -96,7 +96,7 @@ export default function PlaceSheet() {
                     className='text-gray-500'
                   />
                   <Link href={website} target='_blank' className='underline'>
-                    Website
+                    웹사이트
                   </Link>
                 </div>
               )}
@@ -123,7 +123,7 @@ export default function PlaceSheet() {
             </div>
           </div>
 
-          <h2 className='text-xl font-bold mt-4'>Reviews</h2>
+          <h2 className='text-xl font-bold mt-4'>리뷰</h2>
           <div>
             {rating && (
               <div className='space-x-2 flex items-center'>

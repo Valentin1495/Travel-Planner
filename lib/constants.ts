@@ -18,7 +18,7 @@ export const months = [
 export const tripGroupType: { id: number; group: Group }[] = [
   {
     id: 1,
-    group: '혼자 (Solo)',
+    group: '개인 (Solo)',
   },
   {
     id: 2,
@@ -47,44 +47,39 @@ export const withPets = [
 export const interests = [
   {
     id: 1,
-    interest: '문화 및 역사',
+    interest: '문화 체험',
   },
   {
     id: 2,
-    interest: '음식',
+    interest: '액티비티',
   },
   {
     id: 3,
-    interest: '쇼핑',
+    interest: '테마파크',
   },
   {
     id: 4,
-    interest: '자연 및 야외 활동',
+    interest: '웰니스',
   },
   {
     id: 5,
-    interest: '엔터테인먼트',
+    interest: '음식 & 맛집',
   },
-
+  {
+    id: 6,
+    interest: '자연 & 풍경',
+  },
   {
     id: 7,
-    interest: '휴식 및 웰니스',
+    interest: '쇼핑 & 라이프스타일',
   },
   {
     id: 8,
-    interest: '로맨틱',
+    interest: '지역 이벤트',
   },
   {
     id: 9,
-    interest: '핫 플레이스',
-  },
-  {
-    id: 10,
     interest: '사진 명소',
-  },
-  {
-    id: 11,
-    interest: '크루즈',
   },
 ];
 

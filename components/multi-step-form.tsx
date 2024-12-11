@@ -11,7 +11,7 @@ import TripType from './trip-type';
 import Interests from './interests';
 
 export type Group =
-  | '혼자 (Solo)'
+  | '개인 (Solo)'
   | '커플 (Partner)'
   | '친구 (Friends)'
   | '가족 (Family)';
@@ -47,7 +47,7 @@ export default function MultiStepForm() {
     tripLength: 3,
     month: null,
     tripType: {
-      group: { id: 1, group: '혼자 (Solo)' },
+      group: { id: 1, group: '개인 (Solo)' },
       children: {
         id: 2,
         answer: '아니오',

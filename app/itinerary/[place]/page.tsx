@@ -156,7 +156,11 @@ export default async function Itinerary({
   // const answer = result.response.text();
   // await addPlaceDetailsToItinerary(answer.itinerary);
   const newItinerary = data;
+  // const points = newItinerary.map((date) =>
+  //   date.course.map((el) => el.geometry.location)
+  // ).map(locations => ...locations)
 
+  // console.log(points);
   return (
     <main className='flex items-center flex-col gap-y-6 my-10'>
       <Background />
@@ -171,9 +175,10 @@ export default async function Itinerary({
         </section>
         Powered by AI
       </div>
-
       <h1 className='text-3xl font-bold'>{replacedPlace}</h1>
       <ItineraryAccordion itinerary={newItinerary} />
+
+      {/* <GoogleMap /> */}
     </main>
   );
 }
