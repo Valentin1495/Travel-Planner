@@ -10,7 +10,7 @@ export default function MapsApiProvider({
 }) {
   return (
     <APIProvider
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ''}
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}
       libraries={['places']}
       language='en'
     >

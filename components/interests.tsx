@@ -26,12 +26,14 @@ export default function Interests({ data, setData }: InterestsProps) {
 
   return (
     <div className='my-16 flex flex-col items-center'>
-      <h1 className='text-3xl font-bold mb-5'>무엇에 관심이 있으신가요?</h1>
+      <h1 className='text-3xl font-bold mb-5'>
+        Tell us what you&apos;re interested in
+      </h1>
       <p className='text-sm text-neutral-600 mb-3'>
-        관심사를 최대 3가지 선택하세요.
+        Select up to 3 that apply.
       </p>
 
-      <section className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3'>
+      <section className='mt-10 flex flex-wrap gap-3 justify-center'>
         {interests.map(({ id, interest }) => {
           const isAdded = data.interests.some((el) => el.id === id);
 

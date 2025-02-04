@@ -8,23 +8,21 @@ import {
 } from '@/components/ui/sheet';
 import { usePlaceSheetStore } from '@/hooks/use-place-details-store';
 import ImageSlider from './image-slider';
-import {
-  formatNumber,
-  formatType,
-  getImgSrc,
-  translateDays,
-} from '@/lib/utils';
+import { formatNumber, formatType, getImgSrc } from '@/lib/utils';
 import StarRatings from 'react-star-ratings';
 import PopUp from './pop-up';
-import { BadgeInfo, Clock, LinkIcon, MapPin } from 'lucide-react';
+import { Clock, LinkIcon, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Badge } from './ui/badge';
 
 export default function PlaceSheet() {
   const { open, data, closeSheet } = usePlaceSheetStore();
   const imgSrcList =
     data && data.photos
-      ? data.photos.map((el) => getImgSrc(el.photo_reference))
+      ? data.photos.map((el) =>
+          el.photo_reference ? getImgSrc(el.photo_reference) : ''
+        )
       : [];
 
   if (!data) return null;
@@ -39,54 +37,59 @@ export default function PlaceSheet() {
     url,
     user_ratings_total,
     website,
-    description,
   } = data;
 
   return (
     <Sheet open={open} onOpenChange={closeSheet}>
-      <SheetContent className='py-10 px-0 min-w-[540px] overflow-hidden overflow-y-scroll'>
+      <SheetContent className='py-10 px-0 min-w-full sm:min-w-[540px] overflow-hidden overflow-y-scroll'>
         <ImageSlider imgSrcList={imgSrcList} />
         <div className='p-6'>
           <SheetHeader>
             <SheetTitle className='text-3xl font-bold'>{name}</SheetTitle>
           </SheetHeader>
 
-          <div className='space-y-2'>
-            <div className='flex flex-col'>
+          <div className='space-y-2 mt-2'>
+            <div className='flex flex-wrap gap-2'>
               {types?.map((el, idx) => (
-                <span key={idx}>{formatType(el)}</span>
+                <Badge variant='secondary' key={idx}>
+                  {formatType(el)}
+                </Badge>
               ))}
             </div>
 
             <div className='flex items-center gap-3'>
-              <PopUp
-                trigger={
-                  <div className='flex items-center gap-1'>
-                    <Clock
-                      className='text-gray-500'
-                      size={18}
-                      strokeWidth={2.5}
-                    />
-                    {opening_hours?.open_now ? (
-                      <span className='text-green-500 underline underline-offset-4'>
-                        영업 중
-                      </span>
-                    ) : (
-                      <span className='text-red-500 underline'>영업 종료</span>
-                    )}
-                  </div>
-                }
-              >
-                {opening_hours ? (
-                  <section className='space-y-1'>
-                    {opening_hours.weekday_text.map((el, idx) => (
-                      <p key={idx}>{translateDays(el)}</p>
-                    ))}
-                  </section>
-                ) : (
-                  <p>영업 시간 미제공</p>
-                )}
-              </PopUp>
+              {opening_hours && (
+                <PopUp
+                  trigger={
+                    <div className='flex items-center gap-1'>
+                      <Clock
+                        className='text-gray-500'
+                        size={18}
+                        strokeWidth={2.5}
+                      />
+                      {opening_hours.open_now ? (
+                        <span className='text-green-500 underline underline-offset-4'>
+                          Open
+                        </span>
+                      ) : (
+                        <span className='text-red-500 underline'>Closed</span>
+                      )}
+                    </div>
+                  }
+                >
+                  {opening_hours.weekday_text ? (
+                    <section className='space-y-1 p-3'>
+                      {opening_hours.weekday_text.map((el, idx) => (
+                        <p key={idx} className='text-base'>
+                          {el}
+                        </p>
+                      ))}
+                    </section>
+                  ) : (
+                    <p>No data</p>
+                  )}
+                </PopUp>
+              )}
 
               {website && (
                 <div className='flex items-center gap-1'>
@@ -96,19 +99,10 @@ export default function PlaceSheet() {
                     className='text-gray-500'
                   />
                   <Link href={website} target='_blank' className='underline'>
-                    웹사이트
+                    Website
                   </Link>
                 </div>
               )}
-            </div>
-
-            <div className='flex gap-1'>
-              <BadgeInfo
-                className='min-w-fit text-gray-500'
-                strokeWidth={2.5}
-                size={18}
-              />
-              <p>{description}</p>
             </div>
 
             <div className='flex items-center gap-1'>
@@ -123,23 +117,27 @@ export default function PlaceSheet() {
             </div>
           </div>
 
-          <h2 className='text-xl font-bold mt-4'>리뷰</h2>
+          {(rating || reviews) && (
+            <h2 className='text-xl font-bold mt-4'>Reviews</h2>
+          )}
           <div>
             {rating && (
-              <div className='space-x-2 flex items-center'>
-                <span className='text-lg'>{rating}</span>
+              <div className='flex flex-col sm:flex-row items-start sm:items-center sm:gap-x-2'>
+                <div className='flex items-center gap-2'>
+                  <span className='text-lg'>{rating}</span>
 
-                <div className='mb-1'>
-                  <StarRatings
-                    rating={rating}
-                    starRatedColor='#ffd500'
-                    starDimension='20px'
-                    starSpacing='2px'
-                  />
+                  <div className='mb-1'>
+                    <StarRatings
+                      rating={rating}
+                      starRatedColor='#ffd500'
+                      starDimension='20px'
+                      starSpacing='2px'
+                    />
+                  </div>
                 </div>
 
                 <span className='text-lg'>
-                  리뷰 {formatNumber(user_ratings_total)}개
+                  {formatNumber(user_ratings_total)} reviews
                 </span>
               </div>
             )}

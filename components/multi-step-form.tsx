@@ -11,10 +11,10 @@ import TripType from './trip-type';
 import Interests from './interests';
 
 export type Group =
-  | '개인 (Solo)'
-  | '커플 (Partner)'
-  | '친구 (Friends)'
-  | '가족 (Family)';
+  | 'Solo trip'
+  | 'Partner trip'
+  | 'Friends trip'
+  | 'Family trip';
 
 export type Data = {
   place?: string;
@@ -47,14 +47,14 @@ export default function MultiStepForm() {
     tripLength: 3,
     month: null,
     tripType: {
-      group: { id: 1, group: '개인 (Solo)' },
+      group: { id: 1, group: 'Solo trip' },
       children: {
         id: 2,
-        answer: '아니오',
+        answer: 'No',
       },
       pets: {
         id: 2,
-        answer: '아니요',
+        answer: 'No',
       },
     },
   };
@@ -64,7 +64,7 @@ export default function MultiStepForm() {
   const firstStep = currentStep === 1;
   const lastStep = currentStep === 4;
   const router = useRouter();
-  const { place, interests, tripLength } = data;
+  const { place } = data;
 
   const back = () => {
     setCurrentStep((prev) => prev - 1);
@@ -77,9 +77,9 @@ export default function MultiStepForm() {
     const formattedPlace = formatPlace(place!);
     router.push(
       `/itinerary/${formattedPlace}?tripLength=${tripLength}&month=${
-        month?.id
-      }&group=${tripType.group.id}&children=${tripType.children?.id}&pets=${
-        tripType.pets.id
+        month?.name
+      }&group=${tripType.group.id}&children=${tripType.children?.answer}&pets=${
+        tripType.pets.answer
       }&${params.toString()}`
     );
   };
@@ -120,7 +120,7 @@ export default function MultiStepForm() {
             onClick={back}
             type='button'
           >
-            이전
+            Back
           </Button>
         )}
 
@@ -133,7 +133,7 @@ export default function MultiStepForm() {
             (!data.place || !data.month || data.interests.length === 0)
           }
         >
-          {lastStep ? '제출' : '다음'}
+          {lastStep ? 'Submit' : 'Next'}
         </Button>
       </div>
     </div>

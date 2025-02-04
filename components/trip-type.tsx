@@ -38,10 +38,12 @@ export default function TripType({ data, setData }: TripTypeProps) {
 
   return (
     <div className='mt-16 flex flex-col items-center'>
-      <h1 className='text-3xl font-bold mb-5'>누구와 함께 떠나시나요?</h1>
-      <p className='text-sm text-neutral-600 mb-3'>하나를 골라 주세요.</p>
+      <h1 className='text-3xl font-bold mb-5'>
+        What kind of trip are you planning?
+      </h1>
+      <p className='text-sm text-neutral-600 mb-3'>Select one.</p>
 
-      <div className='flex gap-4 my-10'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-10'>
         {tripGroupType.map(({ id, group }) => {
           const isSelected = id === data.tripType.group.id;
 
@@ -51,7 +53,7 @@ export default function TripType({ data, setData }: TripTypeProps) {
               key={id}
               onClick={() => selectType(id)}
               className={cn(
-                'flex items-start justify-between w-40 h-24 pt-3 rounded-lg',
+                'flex items-start justify-between w-40 h-24 pt-3 rounded-lg font-semibold',
                 `${
                   isSelected &&
                   'bg-primary hover:bg-primary/90 text-white hover:text-white'
@@ -73,7 +75,7 @@ export default function TripType({ data, setData }: TripTypeProps) {
 
       {(data.tripType.group.id === 3 || data.tripType.group.id === 4) && (
         <div className='space-y-5'>
-          <p className='text-center'>아이와 함께 여행하시나요?</p>
+          <p className='text-center'>Are you traveling with children?</p>
           <div className='flex items-center gap-3'>
             {withChildren.map(({ id, answer }) => {
               const isSelected = id === data.tripType.children?.id;
@@ -100,8 +102,8 @@ export default function TripType({ data, setData }: TripTypeProps) {
         </div>
       )}
 
-      <div className='space-y-5 mt-8'>
-        <p className='text-center'>반려동물과 함께 여행하시나요?</p>
+      <div className='space-y-5 mt-3 mb-8'>
+        <p className='text-center'>Are you traveling with pets?</p>
         <div className='flex items-center gap-3'>
           {withPets.map(({ id, answer }) => {
             const isSelected = id === data.tripType.pets.id;
@@ -109,7 +111,7 @@ export default function TripType({ data, setData }: TripTypeProps) {
             return (
               <Button
                 className={cn(
-                  'rounded-full w-36',
+                  'rounded-full w-36 font-semibold',
                   `${
                     isSelected &&
                     'bg-primary hover:bg-primary/90 text-white hover:text-white'

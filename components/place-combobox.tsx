@@ -46,17 +46,21 @@ export default function PlaceCombobox({ setData }: Props) {
 
   return (
     <div className='mt-16 flex flex-col items-center'>
-      <h1 className='text-2xl font-bold mb-5'>먼저, 어디로 가고 싶으신가요?</h1>
-      <p className='text-sm'>맞춤 여행 플랜을 제시해 드릴게요 :) </p>
+      <h1 className='text-2xl font-bold mb-5'>
+        First, where do you want to go?
+      </h1>
+      <p className='text-sm'>
+        You&apos;ll get custom recs you can save and turn into an itinerary.
+      </p>
 
-      <div className='rounded-full border-2 border-gray-200 shadow-md px-6 py-3 min-w-[400px] my-10 flex items-center gap-3'>
+      <div className='rounded-full border-2 border-gray-200 shadow-md px-6 py-3 min-w-[300px] sm:min-w-[400px] my-10 flex items-center gap-3 '>
         <Search strokeWidth={1.75} />
         <input
           ref={inputRef}
           value={inputValue}
           onChange={handleInputChange}
-          placeholder='나라 또는 도시를 선택하세요'
-          className='w-full outline-none'
+          placeholder='Choose a city or town'
+          className='w-full outline-none bg-transparent'
         />
       </div>
     </div>

@@ -1,92 +1,216 @@
 import { Group } from '@/components/multi-step-form';
 
 export const months = [
-  { id: 1, name: '1월 (January) ' },
-  { id: 2, name: '2월 (February)' },
-  { id: 3, name: '3월 (March)' },
-  { id: 4, name: '4월 (April)' },
-  { id: 5, name: '5월 (May)' },
-  { id: 6, name: '6월 (June)' },
-  { id: 7, name: '7월 (July)' },
-  { id: 8, name: '8월 (August)' },
-  { id: 9, name: '9월 (September)' },
-  { id: 10, name: '10월 (October)' },
-  { id: 11, name: '11월 (November)' },
-  { id: 12, name: '12월 (December)' },
+  { id: 1, name: 'January' },
+  { id: 2, name: 'February' },
+  { id: 3, name: 'March' },
+  { id: 4, name: 'April' },
+  { id: 5, name: 'May' },
+  { id: 6, name: 'June' },
+  { id: 7, name: 'July' },
+  { id: 8, name: 'August' },
+  { id: 9, name: 'September' },
+  { id: 10, name: 'October' },
+  { id: 11, name: 'November' },
+  { id: 12, name: 'December' },
 ];
 
 export const tripGroupType: { id: number; group: Group }[] = [
   {
     id: 1,
-    group: '개인 (Solo)',
+    group: 'Solo trip',
   },
   {
     id: 2,
-    group: '커플 (Partner)',
+    group: 'Partner trip',
   },
   {
     id: 3,
-    group: '친구 (Friends)',
+    group: 'Friends trip',
   },
   {
     id: 4,
-    group: '가족 (Family)',
+    group: 'Family trip',
   },
 ];
 
 export const withChildren = [
-  { id: 1, answer: '네' },
-  { id: 2, answer: '아니요' },
+  { id: 1, answer: 'Yes' },
+  { id: 2, answer: 'No' },
 ];
 
 export const withPets = [
-  { id: 1, answer: '네' },
-  { id: 2, answer: '아니요' },
+  { id: 1, answer: 'Yes' },
+  { id: 2, answer: 'No' },
 ];
 
 export const interests = [
   {
     id: 1,
-    interest: '문화 체험',
+    interest: 'Adventure',
   },
   {
     id: 2,
-    interest: '액티비티',
+    interest: 'Relaxation',
   },
   {
     id: 3,
-    interest: '테마파크',
+    interest: 'Culture',
   },
   {
     id: 4,
-    interest: '웰니스',
+    interest: 'Nature',
   },
   {
     id: 5,
-    interest: '음식 & 맛집',
+    interest: 'Foodie',
   },
   {
     id: 6,
-    interest: '자연 & 풍경',
+    interest: 'Wellness',
   },
   {
     id: 7,
-    interest: '쇼핑 & 라이프스타일',
+    interest: 'Shopping',
   },
   {
     id: 8,
-    interest: '지역 이벤트',
+    interest: 'Photography',
   },
   {
     id: 9,
-    interest: '사진 명소',
+    interest: 'Nightlife',
+  },
+  {
+    id: 10,
+    interest: 'Romance',
+  },
+  {
+    id: 11,
+    interest: 'Sports',
+  },
+  {
+    id: 12,
+    interest: 'Wildlife',
+  },
+  {
+    id: 13,
+    interest: 'Budget Travel',
+  },
+  {
+    id: 14,
+    interest: 'Luxury',
+  },
+  {
+    id: 15,
+    interest: 'Urban Exploration',
   },
 ];
 
+export const mockAnswer = `
+\`\`\`json
+{
+  "tripName": "Parisian Pet-Friendly Getaway for Two",
+  "days": [
+    {
+      "day": "Day 1",
+      "theme": "Charming Paris & Seine River Romance",
+      "activities": [
+        {
+          "name": "Jardin du Luxembourg Stroll",
+          "description": "Enjoy a leisurely stroll through the beautiful Jardin du Luxembourg and let your pet explore the designated dog areas.",
+          "type": "Exploration, Pet-Friendly",
+          "query": "Jardin du Luxembourg, Paris, France", 
+          "googleMapsUrl": "https://developers.google.com/maps/documentation/javascript/error-messages" 
+        },
+        {
+          "name": "Brunch at Cafe de Flore", 
+          "description": "Enjoy brunch at the iconic Cafe de Flore, known for its literary history and often welcoming well-behaved dogs on their terrace.",
+          "type": "Foodie, Pet-Friendly",
+          "query": "Cafe de Flore, 172 Boulevard Saint-Germain, 75006 Paris, France", 
+          "googleMapsUrl": "https://developers.google.com/maps/documentation/maps-static/error-messages" 
+        },
+        {
+          "name": "Seine River Cruise",
+          "description": "Take a romantic Seine River cruise at sunset, admiring the illuminated city landmarks. Many cruise operators allow well-behaved dogs on board.",
+          "type": "Romance, Pet-Friendly",
+          "query": "Seine River Cruises Paris", 
+          "googleMapsUrl": "https://www.google.com/maps/search/Seine+River+Cruise+Paris+Sunset" 
+        },
+        {
+          "name": "Dinner at Brasserie Lipp",
+          "description": "Indulge in a delicious French dinner at the classic Brasserie Lipp, known for its charming outdoor terrace and often welcoming dogs.",
+          "type": "Foodie, Pet-Friendly",
+          "query": "Brasserie Lipp, 151 Boulevard Saint-Germain, 75006 Paris, France", 
+          "googleMapsUrl": "https://developers.google.com/maps/documentation/javascript/error-messages#missing-key-map-errorhttp://maps.google.com/maps/api/js?sensor=true®ion=GBLine" 
+        }
+      ]
+    },
+    {
+      "day": "Day 2",
+      "theme": "Shopping & Parisian Chic",
+      "activities": [
+        {
+          "name": "Shopping in Saint-Germain-des-Prés",
+          "description": "Explore the charming boutiques and cafes in the Saint-Germain-des-Prés neighborhood.",
+          "type": "Shopping",
+          "query": "Saint-Germain-des-Prés, Paris, France", 
+          "googleMapsUrl": "https://maps.google.com/?cid=87630583782186263542" 
+        },
+        {
+          "name": "Visit Le Bon Marché",
+          "description": "Discover Le Bon Marché, a renowned department store offering a wide selection of luxury goods and a gourmet food hall. Check for pet-friendly areas within the store.",
+          "type": "Shopping, Foodie",
+          "query": "Le Bon Marché, 24 Rue de Sèvres, 75007 Paris, France", 
+          "googleMapsUrl": "https://www.google.com/maps/search/Le+Bon+March%C3%A9+Paris" 
+        },
+        {
+          "name": "Coffee Break in the Latin Quarter",
+          "description": "Wander through the charming streets of the Latin Quarter and enjoy a coffee at a traditional Parisian café.",
+          "type": "Exploration, Foodie",
+          "query": "Latin Quarter, Paris, France", 
+          "googleMapsUrl": "https://www.google.com/maps/search/Latin+Quarter+Paris" 
+        }
+      ]
+    },
+    {
+      "day": "Day 3",
+      "theme": "Montmartre Magic & Departure",
+      "activities": [
+        {
+          "name": "Explore Montmartre",
+          "description": "Explore the artistic neighborhood of Montmartre, visit the Sacré-Cœur Basilica, and enjoy the charming atmosphere. Check for any dog restrictions within the Basilica.",
+          "type": "Exploration, Romance, Pet-Friendly",
+          "query": "Montmartre, Paris, France", 
+          "googleMapsUrl": "https://www.google.com/maps/search/Montmartre+Paris" 
+        },
+        {
+          "name": "Picnic in Jardin du Luxembourg",
+          "description": "Enjoy a picnic lunch in the beautiful Jardin du Luxembourg.",
+          "type": "Foodie, Pet-Friendly",
+          "query": "Jardin du Luxembourg, Paris, France", 
+          "googleMapsUrl": "https://developers.google.com/maps/documentation/javascript/error-messages" 
+        },
+        {
+          "name": "Farewell Dinner",
+          "description": "Enjoy a final Parisian dinner at a restaurant of your choice before heading to the airport.",
+          "type": "Foodie",
+          "query": "Restaurants Paris", 
+          "googleMapsUrl": "https://www.google.com/maps/search/Paris+Restaurants" 
+        }
+      ]
+    }
+  ]
+}
+\`\`\`
+
+    **Note:** This plan takes into account the "pets" aspect by focusing on activities that are generally pet-friendly (walking tours, open-air areas like Montmartre), but it's crucial to confirm pet policies at specific restaurants and attractions beforehand.  January in Paris is cold, so ensure you pack accordingly for you and your pet.  Pre-booking tickets for popular attractions like the Eiffel Tower and Louvre is highly recommended, especially during peak season (though January is typically less crowded).
+    `;
+
 export const data = [
   {
-    date: '1일차',
-    course: [
+    day: 'Day 1',
+    activities: [
       {
         location: 'Notre Dame Cathedral',
         activity: '고딕 양식 건축 감상',
@@ -697,7 +821,7 @@ export const data = [
   },
   {
     date: '2일차',
-    course: [
+    activities: [
       {
         location: 'Galeries Lafayette',
         activity: '명품 쇼핑',
@@ -1378,8 +1502,8 @@ export const data = [
     ],
   },
   {
-    date: '3일차',
-    course: [
+    day: '3일차',
+    activities: [
       {
         location: 'Les Halles market',
         activity: '신선한 식재료 구매, 맛보기',
@@ -2061,3 +2185,106 @@ export const data = [
     ],
   },
 ];
+
+export const mockPhoto = {
+  id: 'zj_zOAaT8as',
+  slug: '3-panel-window-illustration-zj_zOAaT8as',
+  alternative_slugs: {
+    en: '3-panel-window-illustration-zj_zOAaT8as',
+    es: 'ilustracion-de-ventana-de-3-paneles-zj_zOAaT8as',
+    ja: '3パネルウィンドウのイラスト-zj_zOAaT8as',
+    fr: 'illustration-de-fenetre-a-3-panneaux-zj_zOAaT8as',
+    it: 'illustrazione-della-finestra-a-3-pannelli-zj_zOAaT8as',
+    ko: '3패널-창-그림-zj_zOAaT8as',
+    de: '3-teilige-fensterillustration-zj_zOAaT8as',
+    pt: 'ilustracao-da-janela-de-3-paineis-zj_zOAaT8as',
+  },
+  created_at: '2018-11-07T22:18:41Z',
+  updated_at: '2025-01-29T03:01:33Z',
+  promoted_at: '2018-11-08T07:29:08Z',
+  width: 4000,
+  height: 5967,
+  color: '#c0c0c0',
+  blur_hash: 'LKCsXAM{Dis.x^axMxay0Kt7xua#',
+  description: 'Somewhere in Paris',
+  alt_description: '3-panel window illustration',
+  breadcrumbs: [],
+  urls: {
+    raw: 'https://images.unsplash.com/photo-1541628951107-a9af5346a3e4?ixid=M3wzOTY2MDZ8MHwxfHNlYXJjaHwxMHx8UGFyaXN8ZW58MHx8fHwxNzM4NTYyODYzfDA&ixlib=rb-4.0.3',
+    full: 'https://images.unsplash.com/photo-1541628951107-a9af5346a3e4?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzOTY2MDZ8MHwxfHNlYXJjaHwxMHx8UGFyaXN8ZW58MHx8fHwxNzM4NTYyODYzfDA&ixlib=rb-4.0.3&q=85',
+    regular:
+      'https://images.unsplash.com/photo-1541628951107-a9af5346a3e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzOTY2MDZ8MHwxfHNlYXJjaHwxMHx8UGFyaXN8ZW58MHx8fHwxNzM4NTYyODYzfDA&ixlib=rb-4.0.3&q=80&w=1080',
+    small:
+      'https://images.unsplash.com/photo-1541628951107-a9af5346a3e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzOTY2MDZ8MHwxfHNlYXJjaHwxMHx8UGFyaXN8ZW58MHx8fHwxNzM4NTYyODYzfDA&ixlib=rb-4.0.3&q=80&w=400',
+    thumb:
+      'https://images.unsplash.com/photo-1541628951107-a9af5346a3e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzOTY2MDZ8MHwxfHNlYXJjaHwxMHx8UGFyaXN8ZW58MHx8fHwxNzM4NTYyODYzfDA&ixlib=rb-4.0.3&q=80&w=200',
+    small_s3:
+      'https://s3.us-west-2.amazonaws.com/images.unsplash.com/small/photo-1541628951107-a9af5346a3e4',
+  },
+  links: {
+    self: 'https://api.unsplash.com/photos/3-panel-window-illustration-zj_zOAaT8as',
+    html: 'https://unsplash.com/photos/3-panel-window-illustration-zj_zOAaT8as',
+    download:
+      'https://unsplash.com/photos/zj_zOAaT8as/download?ixid=M3wzOTY2MDZ8MHwxfHNlYXJjaHwxMHx8UGFyaXN8ZW58MHx8fHwxNzM4NTYyODYzfDA',
+    download_location:
+      'https://api.unsplash.com/photos/zj_zOAaT8as/download?ixid=M3wzOTY2MDZ8MHwxfHNlYXJjaHwxMHx8UGFyaXN8ZW58MHx8fHwxNzM4NTYyODYzfDA',
+  },
+  likes: 2562,
+  liked_by_user: false,
+  current_user_collections: [],
+  sponsorship: null,
+  topic_submissions: {
+    animals: { status: 'rejected' },
+    nature: { status: 'approved', approved_on: '2021-01-22T18:01:31Z' },
+    'street-photography': {
+      status: 'approved',
+      approved_on: '2021-05-10T17:24:06Z',
+    },
+    travel: { status: 'approved', approved_on: '2024-07-23T09:32:50Z' },
+  },
+  asset_type: 'photo',
+  user: {
+    id: 'z5O37uH-zgI',
+    updated_at: '2025-01-07T05:28:39Z',
+    username: 'thibaultpenin',
+    name: 'Thibault Penin',
+    first_name: 'Thibault',
+    last_name: 'Penin',
+    twitter_username: 'ThibaultPenin',
+    portfolio_url: 'https://www.thibaultpenin.com/',
+    bio: 'I make photos for fun.',
+    location: 'Toulouse, France',
+    links: {
+      self: 'https://api.unsplash.com/users/thibaultpenin',
+      html: 'https://unsplash.com/@thibaultpenin',
+      photos: 'https://api.unsplash.com/users/thibaultpenin/photos',
+      likes: 'https://api.unsplash.com/users/thibaultpenin/likes',
+      portfolio: 'https://api.unsplash.com/users/thibaultpenin/portfolio',
+      following: 'https://api.unsplash.com/users/thibaultpenin/following',
+      followers: 'https://api.unsplash.com/users/thibaultpenin/followers',
+    },
+    profile_image: {
+      small:
+        'https://images.unsplash.com/profile-1643210361813-c69dc17a8ea2image?ixlib=rb-4.0.3&crop=faces&fit=crop&w=32&h=32',
+      medium:
+        'https://images.unsplash.com/profile-1643210361813-c69dc17a8ea2image?ixlib=rb-4.0.3&crop=faces&fit=crop&w=64&h=64',
+      large:
+        'https://images.unsplash.com/profile-1643210361813-c69dc17a8ea2image?ixlib=rb-4.0.3&crop=faces&fit=crop&w=128&h=128',
+    },
+    instagram_username: 'petibalt',
+    total_collections: 5,
+    total_likes: 6,
+    total_photos: 39,
+    total_promoted_photos: 17,
+    total_illustrations: 0,
+    total_promoted_illustrations: 0,
+    accepted_tos: true,
+    for_hire: true,
+    social: {
+      instagram_username: 'petibalt',
+      portfolio_url: 'https://www.thibaultpenin.com/',
+      twitter_username: 'ThibaultPenin',
+      paypal_email: null,
+    },
+  },
+};

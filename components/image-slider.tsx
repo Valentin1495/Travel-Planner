@@ -38,7 +38,7 @@ export default function ImageSlider({ imgSrcList }: ImageSliderProps) {
       >
         <ArrowRight color='white' />
       </button>
-      <div className='absolute bottom-2 z-50 left-1/2 -translate-x-1/2 space-x-3'>
+      <div className='absolute bottom-2 z-50 left-1/2 -translate-x-1/2 space-x-1.5 sm:space-x-3'>
         {imgSrcList.map((_, idx) => {
           const currentOrder = order === idx;
           return (

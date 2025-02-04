@@ -25,7 +25,7 @@ export default function Header({ place, currentStep }: HeaderProps) {
           Powered by AI
         </div>
         {formattedPlace && (
-          <h4 className='font-semibold text-sm my-1'>{formattedPlace} 여행</h4>
+          <h4 className='font-semibold text-sm my-1'>{formattedPlace} trip</h4>
         )}
         <span className='text-sm'>{currentStep} of 4</span>
       </div>

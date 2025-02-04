@@ -1,5 +1,6 @@
-import { type ClassValue, clsx } from 'clsx';
+import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { PlaceDetailsResponse, TextSearchResponse, TripData } from './types';
 
 type Itinerary = {
   date: string;
@@ -41,83 +42,91 @@ export function formatPlace(place: string) {
   return formattedPlace;
 }
 
-const fetchPlaceId = async (placeName: string): Promise<string> => {
-  const searchUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
-    placeName
-  )}&inputtype=textquery&fields=place_id&key=${
-    process.env.NEXT_PUBLIC_GOOGLE_API_KEY
-  }`;
+export const searchTextSearch = async (
+  query: string
+): Promise<TextSearchResponse | null> => {
+  try {
+    const encodedQuery = encodeURIComponent(query);
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedQuery}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
 
-  const response = await fetch(searchUrl);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+    const response = await fetch(url);
 
-  const data = await response.json();
+    if (!response.ok) {
+      const errorText = await response.text(); // Get error details from response body
+      console.error(
+        `Text Search 요청 실패: ${response.status} - ${response.statusText}`,
+        errorText
+      );
+      return null;
+    }
 
-  if (data.candidates && data.candidates.length > 0) {
-    return data.candidates[0].place_id; // 첫 번째 후보의 place_id 반환
-  } else {
-    throw new Error(`No place found for "${placeName}"`);
+    const data: TextSearchResponse = await response.json();
+
+    if (data.status === 'OK') {
+      return data;
+    } else {
+      console.error('Text Search API 반환 오류:', data.status);
+      return null;
+    }
+  } catch (error) {
+    console.error('Text Search 요청 중 오류 발생:', error);
+    return null;
   }
 };
 
-export const fetchPlaceDetails = async (placeId: string) => {
-  const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,formatted_address,geometry,rating,user_ratings_total,reviews,photos,website,url,types&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
+export const getPlaceDetails = async (
+  placeId: string
+): Promise<PlaceDetailsResponse | null> => {
+  try {
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=formatted_address,geometry,name,photos,rating,reviews,types,url,user_ratings_total,website,opening_hours&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
+    const response = await fetch(url);
 
-  const response = await fetch(detailsUrl);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        `Place Details 요청 실패: ${response.status} - ${response.statusText}`,
+        errorText
+      );
+      return null;
+    }
+
+    const data: PlaceDetailsResponse = await response.json();
+
+    if (data.status === 'OK') {
+      return data;
+    } else {
+      console.error('Place Details API 반환 오류:', data.status);
+      return null;
+    }
+  } catch (error) {
+    console.error('Place Details 요청 중 오류 발생:', error);
+    return null;
   }
-  const data = await response.json();
-
-  return data;
 };
 
-export const addPlaceDetailsToItinerary = async (itinerary: Itinerary) => {
-  for (const date of itinerary) {
-    for (const course of date.course) {
-      try {
-        const placeId = await fetchPlaceId(course.location);
-        const placeDetails = await fetchPlaceDetails(placeId);
+export const enrichTripDataWithPlaceDetails = async (tripData: TripData) => {
+  for (const day of tripData.days) {
+    for (const activity of day.activities) {
+      if (activity.query) {
+        const searchResult = await searchTextSearch(activity.query);
 
-        // 사진 URL 및 기타 세부정보 추가
-        if (placeDetails.result) {
-          const {
-            formatted_address,
-            geometry,
-            name,
-            photos,
-            rating,
-            reviews,
-            types,
-            url,
-            user_ratings_total,
-            website,
-            opening_hours,
-          } = placeDetails.result;
-          course['photos'] = photos;
-          course['formatted_address'] = formatted_address;
-          course['rating'] = rating;
-          course['geometry'] = geometry;
-          course['name'] = name;
-          course['opening_hours'] = opening_hours;
-          course['place_id'] = placeId;
-          course['reviews'] = reviews;
-          course['types'] = types;
-          course['url'] = url;
-          course['website'] = website;
-          course['user_ratings_total'] = user_ratings_total;
+        if (searchResult && searchResult.results.length > 0) {
+          activity.placeId = searchResult.results[0].place_id;
+
+          const placeDetails = await getPlaceDetails(activity.placeId);
+          if (placeDetails && placeDetails.result) {
+            activity.details = placeDetails.result;
+            console.log(`Enriched ${activity.name} with details.`);
+          } else {
+            console.log(`Could not retrieve details for ${activity.name}`);
+          }
         } else {
-          console.warn(`No details found for ${course.location}`);
+          console.log(`Could not find Place ID for ${activity.name}`);
         }
-      } catch (error) {
-        console.error(`Error fetching details for ${course.location}:`, error);
       }
     }
   }
-
-  return itinerary;
+  return tripData; // Return the modified tripData
 };
 
 export const getImgSrc = (photo_reference: string) =>
@@ -133,21 +142,4 @@ export const formatType = (str?: string) => {
   if (!str) return null;
 
   return str.replace(/_/g, ' ');
-};
-
-export const translateDays = (input: string) => {
-  const days: Record<string, string> = {
-    Monday: '월요일',
-    Tuesday: '화요일',
-    Wednesday: '수요일',
-    Thursday: '목요일',
-    Friday: '금요일',
-    Saturday: '토요일',
-    Sunday: '일요일',
-  };
-
-  return input.replace(
-    /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/g,
-    (match) => days[match]
-  );
 };

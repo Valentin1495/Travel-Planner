@@ -2,11 +2,12 @@ import PlaceSheet from '@/components/place-sheet';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Lora } from 'next/font/google';
+import MapsApiProvider from '@/components/maps-api-provider';
 
 export const metadata: Metadata = {
-  title: 'AIWanderlust - AI-Powered Travel Itinerary Planner',
+  title: 'TripTailor - AI-Powered Trip Builder',
   description:
-    "AIWanderlust is your ultimate companion for planning memorable and personalized travel experiences. Say goodbye to hours of researching and organizing, and let our AI-powered Travel Itinerary Planner take care of the hard work for you. Whether you're a globetrotter or a casual traveler, AIWanderlust will create a tailor-made itinerary that matches your interests, preferences, and schedule.",
+    "TripTailor is your ultimate companion for planning memorable and personalized travel experiences. Say goodbye to hours of researching and organizing, and let our AI-powered Travel Itinerary Planner take care of the hard work for you. Whether you're a globetrotter or a casual traveler, TripTailor will create a tailor-made itinerary that matches your interests, preferences, and schedule.",
 };
 
 const lora = Lora({
@@ -20,11 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className={lora.className} suppressHydrationWarning>
-      <head>
-        <link rel='icon' href='/favicons/favicon.ico' />
-      </head>
       <body>
-        {children}
+        <MapsApiProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
+          {children}
+        </MapsApiProvider>
         <PlaceSheet />
       </body>
     </html>

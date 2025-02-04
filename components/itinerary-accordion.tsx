@@ -6,214 +6,150 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Clock } from 'lucide-react';
+import { BadgeInfo, Clock } from 'lucide-react';
 import Image from 'next/image';
 import StarRatings from 'react-star-ratings';
 import PopUp from './pop-up';
 import { usePlaceSheetStore } from '@/hooks/use-place-details-store';
-import {
-  formatNumber,
-  formatType,
-  getImgSrc,
-  translateDays,
-} from '@/lib/utils';
+import { formatNumber, getImgSrc } from '@/lib/utils';
+import { Dispatch, SetStateAction } from 'react';
+import { Day } from '@/lib/types';
+import { AspectRatio } from './ui/aspect-ratio';
 
-type ItineraryAccordionProps = {
-  itinerary: {
-    date: string;
-    course: {
-      location: string;
-      activity: string;
-      description: string;
-      place_id: string;
-      formatted_address?: string;
-      name?: string;
-      geometry?: {
-        location: {
-          lat: number;
-          lng: number;
-        };
-        viewport: {
-          northeast: {
-            lat: number;
-            lng: number;
-          };
-          southwest: {
-            lat: number;
-            lng: number;
-          };
-        };
-      };
-      opening_hours?: {
-        open_now: boolean;
-        periods: {
-          close: {
-            day: number;
-            time: string;
-          };
-          open: {
-            day: number;
-            time: string;
-          };
-        }[];
-        weekday_text: string[];
-      };
-      photos?: {
-        height: number;
-        html_attributions: string[];
-        photo_reference: string;
-        width: number;
-      }[];
-      rating?: number;
-      reviews?: google.maps.places.PlaceReview[];
-      types?: string[];
-      url?: string;
-      user_ratings_total?: number;
-      website?: string;
-    }[];
-  }[];
-};
+type ItineraryAccordionProps = { days: Day[] };
 
-export default function ItineraryAccordion({
-  itinerary,
-}: ItineraryAccordionProps) {
+export default function ItineraryAccordion({ days }: ItineraryAccordionProps) {
   const { openSheet } = usePlaceSheetStore();
 
   return (
-    <div className='mt-6 w-full'>
-      <Accordion type='multiple' className='w-1/2 mx-auto min-w-[500px]'>
-        {itinerary.map(({ date, course }, idx) => (
-          <AccordionItem value={date} key={idx}>
+    <div className='xl:w-3/5'>
+      <Accordion type='multiple' className='min-w-[280px] sm:min-w-[500px]'>
+        {days.map(({ day, activities, theme }, idx) => (
+          <AccordionItem value={day} key={idx}>
             <AccordionTrigger className='text-xl font-semibold'>
-              {date}
+              {day + ' - ' + theme}
             </AccordionTrigger>
             <AccordionContent>
-              {course.map(
-                (
-                  {
-                    place_id,
-                    activity,
-                    location,
+              {activities.map(
+                ({ placeId, details, name, description, type }, idx) => {
+                  if (!details) return;
+                  const {
                     photos,
-                    user_ratings_total,
-                    rating,
-                    types,
-                    opening_hours,
                     formatted_address,
-                    url,
-                    website,
+                    opening_hours,
+                    rating,
                     reviews,
-                    name,
-                    description,
-                  },
-                  idx
-                ) => (
-                  <div key={place_id}>
-                    <div
-                      className='rounded-md border border-gray-300 p-3 flex gap-3 cursor-pointer transition shadow-md hover:shadow-xl'
-                      onClick={() =>
-                        openSheet({
-                          photos,
-                          user_ratings_total,
-                          rating,
-                          types,
-                          opening_hours,
-                          reviews,
-                          url,
-                          website,
-                          formatted_address,
-                          name,
-                          description,
-                        })
-                      }
-                    >
-                      {photos && (
-                        <Image
-                          src={getImgSrc(photos[0].photo_reference)}
-                          alt={location}
-                          width={120}
-                          height={120}
-                          className='object-cover aspect-square rounded-md'
-                        />
-                      )}
-                      <div>
-                        <h3 className='text-lg font-medium'>
-                          {location} - {activity}
-                        </h3>
-                        {rating && (
-                          <div className='space-x-2 flex'>
-                            <span className='text-sm mt-0.5'>{rating}</span>
-
-                            <div>
-                              <StarRatings
-                                rating={rating}
-                                starRatedColor='#ffd500'
-                                starDimension='16px'
-                                starSpacing='2px'
+                    types,
+                    url,
+                    user_ratings_total,
+                    website,
+                    name: placeName,
+                  } = details;
+                  return (
+                    <div key={placeId}>
+                      <div
+                        className='rounded-md border border-gray-300 p-3 flex flex-col sm:flex-row gap-3 cursor-pointer transition shadow-md hover:shadow-xl'
+                        onClick={() =>
+                          openSheet({
+                            photos,
+                            user_ratings_total,
+                            rating,
+                            types,
+                            opening_hours,
+                            reviews,
+                            url,
+                            website,
+                            formatted_address,
+                            name: placeName,
+                            description,
+                          })
+                        }
+                        // onMouseEnter={() => setHoveredMarker(place_id)}
+                        // onMouseLeave={() => setHoveredMarker('')}
+                      >
+                        {photos && photos[0].photo_reference && (
+                          <div className='min-w-[200px]'>
+                            <AspectRatio ratio={1 / 1}>
+                              <Image
+                                src={getImgSrc(photos[0].photo_reference)}
+                                alt={photos[0].photo_reference}
+                                fill
+                                className='object-cover rounded-md'
                               />
-                            </div>
-
-                            <span className='text-sm mt-0.5'>
-                              ({formatNumber(user_ratings_total)})
-                            </span>
+                            </AspectRatio>
                           </div>
                         )}
-                        <section className='my-2'>
-                          {types &&
-                            types.length &&
-                            (types.length < 3
-                              ? types.map((el, idx) => (
-                                  <span key={idx}>
-                                    {formatType(el) +
-                                      `${idx < types.length - 1 ? ' & ' : ''}`}
-                                  </span>
-                                ))
-                              : types
-                                  .slice(0, 3)
-                                  .map((el, idx) => (
-                                    <span key={idx}>
-                                      {formatType(el) +
-                                        `${idx < 2 ? ' & ' : ''}`}
-                                    </span>
-                                  )))}
-                        </section>
-                        <PopUp
-                          trigger={
-                            <div className='flex items-center gap-1'>
-                              <Clock
-                                className='text-gray-500'
-                                size={18}
-                                strokeWidth={2.5}
-                              />
-                              {opening_hours?.open_now ? (
-                                <span className='text-green-500 text-xs underline'>
-                                  영업 중
-                                </span>
-                              ) : (
-                                <span className='text-red-500 text-xs underline'>
-                                  영업 종료
-                                </span>
-                              )}
+                        <div>
+                          <h3 className='text-lg font-medium'>{name}</h3>
+                          <p className='text-base'>{description}</p>
+                          {rating && (
+                            <div className='space-x-2 flex'>
+                              <span className='text-sm mt-0.5'>{rating}</span>
+
+                              <div>
+                                <StarRatings
+                                  rating={rating}
+                                  starRatedColor='#ffd500'
+                                  starDimension='16px'
+                                  starSpacing='2px'
+                                />
+                              </div>
+
+                              <span className='text-sm mt-0.5'>
+                                ({formatNumber(user_ratings_total)})
+                              </span>
                             </div>
-                          }
-                        >
-                          {opening_hours ? (
-                            <section className='space-y-1'>
-                              {opening_hours.weekday_text.map((el, idx) => (
-                                <p key={idx}>{translateDays(el)}</p>
-                              ))}
-                            </section>
-                          ) : (
-                            <p>영업 시간 미제공</p>
                           )}
-                        </PopUp>
+                          <section className='my-2 flex items-center gap-1'>
+                            <BadgeInfo
+                              className='text-gray-500'
+                              size={20}
+                              strokeWidth={2.5}
+                            />
+                            {type}
+                          </section>
+                          {opening_hours && (
+                            <PopUp
+                              trigger={
+                                <div className='flex items-center gap-1'>
+                                  <Clock
+                                    className='text-gray-500'
+                                    size={18}
+                                    strokeWidth={2.5}
+                                  />
+                                  {opening_hours.open_now ? (
+                                    <span className='text-green-500 text-sm underline'>
+                                      Open
+                                    </span>
+                                  ) : (
+                                    <span className='text-red-500 text-sm underline'>
+                                      Closed
+                                    </span>
+                                  )}
+                                </div>
+                              }
+                            >
+                              {opening_hours.weekday_text ? (
+                                <section className='space-y-1 p-3'>
+                                  {opening_hours.weekday_text.map((el, idx) => (
+                                    <p key={idx} className='text-base'>
+                                      {el}
+                                    </p>
+                                  ))}
+                                </section>
+                              ) : (
+                                <p>No data</p>
+                              )}
+                            </PopUp>
+                          )}
+                        </div>
                       </div>
+                      {idx < activities.length - 1 && (
+                        <div className='bg-gray-300 h-10 w-0.5 mx-auto' />
+                      )}
                     </div>
-                    {idx < 2 && (
-                      <div className='bg-gray-300 h-10 w-0.5 ml-16' />
-                    )}
-                  </div>
-                )
+                  );
+                }
               )}
             </AccordionContent>
           </AccordionItem>

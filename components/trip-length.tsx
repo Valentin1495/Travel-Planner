@@ -52,20 +52,20 @@ export default function TripLength({ data, setData }: Props) {
 
   return (
     <div className='my-16 flex flex-col items-center'>
-      <h1 className='text-3xl font-bold mb-5'>언제 떠날 예정이신가요?</h1>
+      <h1 className='text-3xl font-bold mb-5'>When are you going?</h1>
       <p className='text-sm text-neutral-600 mb-3'>
-        달과 여행 기간을 선택해 주세요.
+        Choose month and trip length.
       </p>
 
       <div className='w-full'>
         <div className='my-10'>
-          <div className='grid grid-cols-4 gap-x-16 gap-y-3'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-16 gap-y-3'>
             {months.map(({ id, name }) => (
               <Button
                 size='lg'
                 variant='outline'
                 className={cn(
-                  'rounded-full min-w-[200px]',
+                  'rounded-full min-w-[200px] font-semibold',
                   `${
                     data.month?.id === id &&
                     'bg-primary hover:bg-primary/90 text-white hover:text-white'
@@ -81,7 +81,8 @@ export default function TripLength({ data, setData }: Props) {
           </div>
         </div>
 
-        <div className='flex items-center justify-end gap-3'>
+        <div className='flex items-center justify-between'>
+          <p className='font-semibold'>How many days?</p>
           <div className='flex items-center gap-3'>
             <button
               className={cn(
@@ -105,7 +106,6 @@ export default function TripLength({ data, setData }: Props) {
               <PlusCircle className='w-7 h-7' />
             </button>
           </div>
-          일
         </div>
       </div>
     </div>
