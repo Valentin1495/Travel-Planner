@@ -11,8 +11,7 @@ import Image from 'next/image';
 import StarRatings from 'react-star-ratings';
 import PopUp from './pop-up';
 import { usePlaceSheetStore } from '@/hooks/use-place-details-store';
-import { formatNumber, getImgSrc } from '@/lib/utils';
-import { Dispatch, SetStateAction } from 'react';
+import { formatNumber } from '@/lib/utils';
 import { Day } from '@/lib/types';
 import { AspectRatio } from './ui/aspect-ratio';
 
@@ -22,7 +21,7 @@ export default function ItineraryAccordion({ days }: ItineraryAccordionProps) {
   const { openSheet } = usePlaceSheetStore();
 
   return (
-    <div className='xl:w-3/5'>
+    <div>
       <Accordion type='multiple' className='min-w-[280px] sm:min-w-[500px]'>
         {days.map(({ day, activities, theme }, idx) => (
           <AccordionItem value={day} key={idx}>
@@ -46,7 +45,7 @@ export default function ItineraryAccordion({ days }: ItineraryAccordionProps) {
                     name: placeName,
                   } = details;
                   return (
-                    <div key={placeId}>
+                    <div key={idx}>
                       <div
                         className='rounded-md border border-gray-300 p-3 flex flex-col sm:flex-row gap-3 cursor-pointer transition shadow-md hover:shadow-xl'
                         onClick={() =>
@@ -64,15 +63,13 @@ export default function ItineraryAccordion({ days }: ItineraryAccordionProps) {
                             description,
                           })
                         }
-                        // onMouseEnter={() => setHoveredMarker(place_id)}
-                        // onMouseLeave={() => setHoveredMarker('')}
                       >
-                        {photos && photos[0].photo_reference && (
+                        {photos && (
                           <div className='min-w-[200px]'>
                             <AspectRatio ratio={1 / 1}>
                               <Image
-                                src={getImgSrc(photos[0].photo_reference)}
-                                alt={photos[0].photo_reference}
+                                src={photos[0].photoSrc}
+                                alt='Featured'
                                 fill
                                 className='object-cover rounded-md'
                               />

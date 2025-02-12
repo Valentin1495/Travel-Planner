@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/sheet';
 import { usePlaceSheetStore } from '@/hooks/use-place-details-store';
 import ImageSlider from './image-slider';
-import { formatNumber, formatType, getImgSrc } from '@/lib/utils';
+import { formatNumber, formatType } from '@/lib/utils';
 import StarRatings from 'react-star-ratings';
 import PopUp from './pop-up';
 import { Clock, LinkIcon, MapPin } from 'lucide-react';
@@ -19,11 +19,7 @@ import { Badge } from './ui/badge';
 export default function PlaceSheet() {
   const { open, data, closeSheet } = usePlaceSheetStore();
   const imgSrcList =
-    data && data.photos
-      ? data.photos.map((el) =>
-          el.photo_reference ? getImgSrc(el.photo_reference) : ''
-        )
-      : [];
+    data && data.photos ? data.photos.map((el) => el.photoSrc) : [];
 
   if (!data) return null;
 

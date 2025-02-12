@@ -18,6 +18,7 @@ export interface PlaceDetailsResponse {
     };
     name?: string;
     photos?: {
+      photoSrc: string;
       photo_reference?: string;
       height?: number;
       width?: number;
@@ -59,7 +60,6 @@ export interface Activity {
   description: string;
   type: string;
   query?: string;
-  googleMapsUrl?: string;
   placeId?: string;
   details?: PlaceDetailsResponse['result'];
 }
@@ -68,9 +68,4 @@ export interface Day {
   day: string;
   theme: string;
   activities: Activity[];
-}
-
-export interface TripData {
-  tripName: string;
-  days: Day[];
 }

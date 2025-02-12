@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang='en' className={lora.className} suppressHydrationWarning>
       <body>
-        <MapsApiProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}>
+        <MapsApiProvider apiKey={process.env.GOOGLE_API_KEY!}>
           {children}
         </MapsApiProvider>
         <PlaceSheet />

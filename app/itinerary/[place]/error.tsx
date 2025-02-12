@@ -25,7 +25,10 @@ export default function Error({
         height={128}
         className='ml-5 mb-10'
       />
-      <p>Something went wrong, but don't fret - let's give it another shot.</p>
+      <p>
+        Something went wrong, but don&apos;t fret - let&apos;s give it another
+        shot.
+      </p>
       <Button
         onClick={
           // Attempt to recover by trying to re-render the segment

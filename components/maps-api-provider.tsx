@@ -4,16 +4,13 @@ import { APIProvider } from '@vis.gl/react-google-maps';
 
 export default function MapsApiProvider({
   children,
+  apiKey,
 }: {
   children: React.ReactNode;
   apiKey: string;
 }) {
   return (
-    <APIProvider
-      apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}
-      libraries={['places']}
-      language='en'
-    >
+    <APIProvider apiKey={apiKey} libraries={['places']} language='en'>
       {children}
     </APIProvider>
   );

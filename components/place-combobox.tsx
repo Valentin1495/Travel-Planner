@@ -42,7 +42,7 @@ export default function PlaceCombobox({ setData }: Props) {
         };
       });
     }
-  }, [inputValue]);
+  }, [inputValue, autocompleteInstance, setData]);
 
   return (
     <div className='mt-16 flex flex-col items-center'>
