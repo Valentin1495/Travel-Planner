@@ -73,20 +73,24 @@ export default function CreateItinerary({
     // ✅ JSON만 추출하는 정규식
     const jsonMatch = aiMessage.match(/```json([\s\S]*?)```/);
     const jsonString = jsonMatch ? jsonMatch[1].trim() : aiMessage;
+    const cleanJSON = jsonString
+      .replace(/\/\/.*$/gm, '') // 한 줄 주석 제거
+      .replace(/\/\*[\s\S]*?\*\//g, '') // 여러 줄 주석 제거
+      .trim();
 
     // ✅ JSON 파싱 예외 처리
     let parsedData;
     try {
-      parsedData = JSON.parse(jsonString);
+      parsedData = JSON.parse(cleanJSON);
     } catch (error) {
-      console.error('❌ JSON 파싱 실패:', jsonString);
+      console.error('❌ JSON 파싱 실패:', cleanJSON);
       setIsLoading(false);
       return;
     }
 
     setMessages((prev) => [
       ...prev,
-      { role: 'model', parts: [{ text: jsonString }] },
+      { role: 'model', parts: [{ text: cleanJSON }] },
     ]);
 
     const enrichedDay = await fetchData('/api/place/enrich', 'POST', {
