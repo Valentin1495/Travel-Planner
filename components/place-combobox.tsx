@@ -49,9 +49,7 @@ export default function PlaceCombobox({ setData }: Props) {
       <h1 className='text-2xl font-bold mb-5'>
         First, where do you want to go?
       </h1>
-      <p className='text-sm'>
-        You&apos;ll get custom recs you can save and turn into an itinerary.
-      </p>
+      <p className='text-sm'>Create and save your own itinerary.</p>
 
       <div className='rounded-full border-2 border-gray-200 shadow-md px-6 py-3 min-w-[300px] sm:min-w-[400px] my-10 flex items-center gap-3 '>
         <Search strokeWidth={1.75} />

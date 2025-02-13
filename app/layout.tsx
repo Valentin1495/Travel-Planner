@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Lora } from 'next/font/google';
 import MapsApiProvider from '@/components/maps-api-provider';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'TripTailor - AI-Powered Trip Builder',
@@ -26,6 +27,7 @@ export default function RootLayout({
           {children}
         </MapsApiProvider>
         <PlaceSheet />
+        <Analytics />
       </body>
     </html>
   );
