@@ -3,13 +3,15 @@
 import { useEffect, useState } from 'react';
 import ItineraryAccordion from './itinerary-accordion';
 import { Button } from './ui/button';
-import { Day } from '@/lib/types';
+import { Day, Dict } from '@/lib/types';
 import ItinerarySkeleton from './itinerary-skeleton';
 import Link from 'next/link';
 
 type CreateItineraryProps = {
   input: string;
   tripLength: string;
+  dict: Dict;
+  lang: 'en' | 'ko';
 };
 
 type Message = {
@@ -20,7 +22,10 @@ type Message = {
 export default function CreateItinerary({
   input,
   tripLength,
+  dict,
+  lang,
 }: CreateItineraryProps) {
+  const { newTrip } = dict;
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentDay, setCurrentDay] = useState(1);
@@ -103,27 +108,35 @@ export default function CreateItinerary({
     setCurrentDay((prev) => prev + 1);
   };
 
-  useEffect(() => {
-    createItinerary('');
-  }, []);
-
   const isLastDay = currentDay === Number(tripLength) + 1;
+
+  useEffect(() => {
+    if (days.length === 0 && currentDay === 1) {
+      createItinerary('');
+    }
+  }, [days.length, currentDay, createItinerary]);
 
   return (
     <div className='flex flex-col mt-6 mx-auto max-w-6xl gap-8'>
       <Button
         disabled={isLoading || isLastDay}
         onClick={() =>
-          createItinerary(`
-        Day ${currentDay}
-        `)
+          createItinerary(
+            lang === 'en' ? `Day ${currentDay}` : `${currentDay}일차)`
+          )
         }
       >
-        {isLoading
-          ? 'Generating...'
+        {lang === 'en'
+          ? isLoading
+            ? 'Generating...'
+            : isLastDay
+            ? 'Last day generated'
+            : 'Generate Day'
+          : isLoading
+          ? '일정 생성 중...'
           : isLastDay
-          ? 'Last day generated'
-          : 'Generate Day'}
+          ? '일정 생성 완료'
+          : '일정 생성'}
       </Button>
 
       {days.length === 0 && <ItinerarySkeleton />}
@@ -135,7 +148,7 @@ export default function CreateItinerary({
           href='/generate-itinerary'
           className='inline-flex items-center justify-center rounded-md text-sm font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2'
         >
-          New trip
+          {newTrip}
         </Link>
       )}
     </div>

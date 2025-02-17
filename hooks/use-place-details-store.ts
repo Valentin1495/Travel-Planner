@@ -20,9 +20,8 @@ export const usePlaceSheetStore = create<PlaceSheetStore>((set) => ({
       open: true,
       data,
     }),
-  closeSheet: () =>
-    set({
-      open: false,
-      data: null,
-    }),
+  closeSheet: () => {
+    set({ open: false }); // 먼저 open 상태를 false로 변경하여 애니메이션 적용
+    setTimeout(() => set({ data: null }), 300); // 애니메이션 시간(300ms) 후 data 초기화
+  },
 }));

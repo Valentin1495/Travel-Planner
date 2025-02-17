@@ -1,0 +1,76 @@
+{
+  "heading1": "TripTailor",
+  "heading2": "다음 여행을 위한 맞춤 추천을 받아보세요",
+  "paragraph": "좋아하는 것을 기반으로 멋진 맛집, 경험 등을 찾아보세요.",
+  "sparkles": "AI와 함께 여행을 시작하세요",
+  "placeHeading": "먼저, 어디로 가고 싶나요?",
+  "placeParagraph": "나만의 여행 일정을 만들고 저장하세요.",
+  "months": [
+    { "id": 1, "name": "1월" },
+    { "id": 2, "name": "2월" },
+    { "id": 3, "name": "3월" },
+    { "id": 4, "name": "4월" },
+    { "id": 5, "name": "5월" },
+    { "id": 6, "name": "6월" },
+    { "id": 7, "name": "7월" },
+    { "id": 8, "name": "8월" },
+    { "id": 9, "name": "9월" },
+    { "id": 10, "name": "10월" },
+    { "id": 11, "name": "11월" },
+    { "id": 12, "name": "12월" }
+  ],
+  "tripLengthHeading": "언제 여행을 떠나시나요?",
+  "tripLengthParagraph": "여행할 달과 기간을 선택하세요.",
+  "tripLengthQuestion": "며칠 동안 여행하시나요?",
+  "tripTypeHeading": "어떤 여행을 계획하고 계신가요?",
+  "tripTypeParagraph": "하나를 선택하세요.",
+  "petQuestion": "반려동물과 함께 여행하시나요?",
+  "childrenQuestion": "아이와 함께 여행하시나요?",
+  "withChildren": [
+    { "id": 1, "answer": "네" },
+    { "id": 2, "answer": "아니요" }
+  ],
+  "withPets": [
+    { "id": 1, "answer": "네" },
+    { "id": 2, "answer": "아니요" }
+  ],
+  "tripGroupType": [
+    {
+      "id": 1,
+      "group": "혼자 여행"
+    },
+    {
+      "id": 2,
+      "group": "연인과 여행"
+    },
+    {
+      "id": 3,
+      "group": "친구들과 여행"
+    },
+    {
+      "id": 4,
+      "group": "가족 여행"
+    }
+  ],
+  "interests": [
+    { "id": 1, "interest": "모험" },
+    { "id": 2, "interest": "휴식" },
+    { "id": 3, "interest": "문화" },
+    { "id": 4, "interest": "자연" },
+    { "id": 5, "interest": "미식" },
+    { "id": 6, "interest": "웰니스" },
+    { "id": 7, "interest": "쇼핑" },
+    { "id": 8, "interest": "사진 촬영" },
+    { "id": 9, "interest": "나이트라이프" },
+    { "id": 10, "interest": "로맨스" },
+    { "id": 11, "interest": "스포츠" },
+    { "id": 12, "interest": "야생동물" },
+    { "id": 13, "interest": "저예산 여행" },
+    { "id": 14, "interest": "럭셔리" },
+    { "id": 15, "interest": "도시 탐험" }
+  ],
+  "interestsHeading": "관심 있는 것을 알려주세요",
+  "interestsParagraph": "최대 3개까지 선택할 수 있습니다.",
+  "newTrip": "새로운 여행",
+  "day": "일"
+}

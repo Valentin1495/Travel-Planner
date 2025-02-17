@@ -1,0 +1,76 @@
+{
+  "heading1": "TripTailor",
+  "heading2": "Get custom recs for your next trip",
+  "paragraph": "Find great eats, experiences, and more — inspired by things you love.",
+  "sparkles": "Start a trip with AI",
+  "placeHeading": "First, where do you want to go?",
+  "placeParagraph": "Create and save your own itinerary.",
+  "months": [
+    { "id": 1, "name": "January" },
+    { "id": 2, "name": "February" },
+    { "id": 3, "name": "March" },
+    { "id": 4, "name": "April" },
+    { "id": 5, "name": "May" },
+    { "id": 6, "name": "June" },
+    { "id": 7, "name": "July" },
+    { "id": 8, "name": "August" },
+    { "id": 9, "name": "September" },
+    { "id": 10, "name": "October" },
+    { "id": 11, "name": "November" },
+    { "id": 12, "name": "December" }
+  ],
+  "tripLengthHeading": "When are you going?",
+  "tripLengthParagraph": "Choose month and trip length.",
+  "tripLengthQuestion": "How many days?",
+  "tripTypeHeading": "What kind of trip are you planning?",
+  "tripTypeParagraph": "Select one.",
+  "petQuestion": "Are you traveling with pets?",
+  "childrenQuestion": "Are you traveling with children?",
+  "withChildren": [
+    { "id": 1, "answer": "Yes" },
+    { "id": 2, "answer": "No" }
+  ],
+  "withPets": [
+    { "id": 1, "answer": "Yes" },
+    { "id": 2, "answer": "No" }
+  ],
+  "tripGroupType": [
+    {
+      "id": 1,
+      "group": "Solo trip"
+    },
+    {
+      "id": 2,
+      "group": "Partner trip"
+    },
+    {
+      "id": 3,
+      "group": "Friends trip"
+    },
+    {
+      "id": 4,
+      "group": "Family trip"
+    }
+  ],
+  "interests": [
+    { "id": 1, "interest": "Adventure" },
+    { "id": 2, "interest": "Relaxation" },
+    { "id": 3, "interest": "Culture" },
+    { "id": 4, "interest": "Nature" },
+    { "id": 5, "interest": "Foodie" },
+    { "id": 6, "interest": "Wellness" },
+    { "id": 7, "interest": "Shopping" },
+    { "id": 8, "interest": "Photography" },
+    { "id": 9, "interest": "Nightlife" },
+    { "id": 10, "interest": "Romance" },
+    { "id": 11, "interest": "Sports" },
+    { "id": 12, "interest": "Wildlife" },
+    { "id": 13, "interest": "Budget Travel" },
+    { "id": 14, "interest": "Luxury" },
+    { "id": 15, "interest": "Urban Exploration" }
+  ],
+  "interestsHeading": "Tell us what you're interested in",
+  "interestsParagraph": "Select up to 3 that apply.",
+  "newTrip": "New trip",
+  "day": "Day"
+}

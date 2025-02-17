@@ -69,3 +69,43 @@ export interface Day {
   theme: string;
   activities: Activity[];
 }
+
+export interface Dict {
+  heading1: string;
+  heading2: string;
+  paragraph: string;
+  sparkles: string;
+  placeHeading: string;
+  placeParagraph: string;
+  months: {
+    id: number;
+    name: string;
+  }[];
+  tripLengthHeading: string;
+  tripLengthParagraph: string;
+  tripLengthQuestion: string;
+  tripTypeHeading: string;
+  tripTypeParagraph: string;
+  petQuestion: string;
+  childrenQuestion: string;
+  withChildren: {
+    id: number;
+    answer: string;
+  }[];
+  withPets: {
+    id: number;
+    answer: string;
+  }[];
+  tripGroupType: {
+    id: number;
+    group: string;
+  }[];
+  interests: {
+    id: number;
+    interest: string;
+  }[];
+  interestsHeading: string;
+  interestsParagraph: string;
+  newTrip: string;
+  day: string;
+}

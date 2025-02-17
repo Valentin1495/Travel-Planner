@@ -19,7 +19,7 @@ export default function Error({
   return (
     <div className='flex items-center justify-center min-h-screen flex-col gap-6'>
       <Image
-        src='/logo.svg'
+        src='/icon.svg'
         alt='Logo'
         width={128}
         height={128}

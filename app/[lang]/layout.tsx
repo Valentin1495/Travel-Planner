@@ -1,5 +1,5 @@
 import PlaceSheet from '@/components/place-sheet';
-import './globals.css';
+import '@/app/globals.css';
 import type { Metadata } from 'next';
 import { Lora } from 'next/font/google';
 import MapsApiProvider from '@/components/maps-api-provider';

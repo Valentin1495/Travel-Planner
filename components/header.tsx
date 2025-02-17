@@ -1,5 +1,6 @@
 import { formatPlace } from '@/lib/utils';
 import { Sparkles } from 'lucide-react';
+import LanguageSwitcher from './language-switcher';
 
 type HeaderProps = {
   place?: string;
@@ -27,7 +28,8 @@ export default function Header({ place, currentStep }: HeaderProps) {
         {formattedPlace && (
           <h4 className='font-semibold text-sm my-1'>{formattedPlace} trip</h4>
         )}
-        <span className='text-sm'>{currentStep} of 4</span>
+        <span className='text-sm mb-3'>{currentStep} of 4</span>
+        <LanguageSwitcher />
       </div>
 
       <div className='relative h-1.5 rounded-full overflow-hidden mt-16'>

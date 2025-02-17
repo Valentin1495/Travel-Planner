@@ -4,12 +4,18 @@ import { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { Data } from './multi-step-form';
 import { Check, MinusCircle, PlusCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { months } from '@/lib/constants';
 import { Button } from './ui/button';
+import { Dict } from '@/lib/types';
 
-type Props = { data: Data; setData: Dispatch<SetStateAction<Data>> };
+type TripLengthProps = {
+  data: Data;
+  setData: Dispatch<SetStateAction<Data>>;
+  dict: Dict;
+};
 
-export default function TripLength({ data, setData }: Props) {
+export default function TripLength({ data, setData, dict }: TripLengthProps) {
+  const { months, tripLengthHeading, tripLengthParagraph, tripLengthQuestion } =
+    dict;
   const { tripLength } = data;
   const [deactivateMinus, setDeactivateMinus] = useState(false);
   const [deactivatePlus, setDeactivatePlus] = useState(false);
@@ -52,10 +58,8 @@ export default function TripLength({ data, setData }: Props) {
 
   return (
     <div className='my-16 flex flex-col items-center'>
-      <h1 className='text-3xl font-bold mb-5'>When are you going?</h1>
-      <p className='text-sm text-neutral-600 mb-3'>
-        Choose month and trip length.
-      </p>
+      <h1 className='text-3xl font-bold mb-5'>{tripLengthHeading}</h1>
+      <p className='text-sm text-neutral-600 mb-3'>{tripLengthParagraph}</p>
 
       <div className='w-full'>
         <div className='my-10'>
@@ -82,7 +86,7 @@ export default function TripLength({ data, setData }: Props) {
         </div>
 
         <div className='flex items-center justify-between'>
-          <p className='font-semibold'>How many days?</p>
+          <p className='font-semibold'>{tripLengthQuestion}</p>
           <div className='flex items-center gap-3'>
             <button
               className={cn(

@@ -9,12 +9,7 @@ import { useRouter } from 'next/navigation';
 import TripLength from './trip-length';
 import TripType from './trip-type';
 import Interests from './interests';
-
-export type Group =
-  | 'Solo trip'
-  | 'Partner trip'
-  | 'Friends trip'
-  | 'Family trip';
+import { Dict } from '@/lib/types';
 
 export type Data = {
   place?: string;
@@ -28,7 +23,7 @@ export type Data = {
     name: string;
   } | null;
   tripType: {
-    group: { id: number; group: Group };
+    group: { id: number; group: string };
     children?: {
       id: number;
       answer: string;
@@ -40,7 +35,11 @@ export type Data = {
   };
 };
 
-export default function MultiStepForm() {
+type MultiStepFormProps = {
+  dict: Dict;
+};
+
+export default function MultiStepForm({ dict }: MultiStepFormProps) {
   const initialData: Data = {
     place: undefined,
     interests: [],
@@ -77,10 +76,10 @@ export default function MultiStepForm() {
     const formattedPlace = formatPlace(place!);
     router.push(
       `/itinerary/${formattedPlace}?tripLength=${tripLength}&month=${
-        month?.name
-      }&group=${tripType.group.id}&children=${tripType.children?.answer}&pets=${
-        tripType.pets.answer
-      }&${params.toString()}`
+        month?.id
+      }&group=${tripType.group.id}&children=${
+        tripType.children?.id === 1 ? 'yes' : 'no'
+      }&pets=${tripType.pets.id === 1 ? 'yes' : 'no'}&${params.toString()}`
     );
   };
 
@@ -98,13 +97,19 @@ export default function MultiStepForm() {
 
       {currentStep === 1 && (
         <div className='space-y-3'>
-          <PlaceCombobox setData={setData} />
+          <PlaceCombobox setData={setData} dict={dict} />
         </div>
       )}
 
-      {currentStep === 2 && <TripLength data={data} setData={setData} />}
-      {currentStep === 3 && <TripType data={data} setData={setData} />}
-      {currentStep === 4 && <Interests data={data} setData={setData} />}
+      {currentStep === 2 && (
+        <TripLength data={data} setData={setData} dict={dict} />
+      )}
+      {currentStep === 3 && (
+        <TripType data={data} setData={setData} dict={dict} />
+      )}
+      {currentStep === 4 && (
+        <Interests data={data} setData={setData} dict={dict} />
+      )}
 
       <div
         className={cn(

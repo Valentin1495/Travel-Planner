@@ -1,13 +1,26 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Data } from './multi-step-form';
-import { tripGroupType, withChildren, withPets } from '@/lib/constants';
 import { Button } from './ui/button';
 import { Check, Heart, Home, User, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Dict } from '@/lib/types';
 
-type TripTypeProps = { data: Data; setData: Dispatch<SetStateAction<Data>> };
+type TripTypeProps = {
+  data: Data;
+  setData: Dispatch<SetStateAction<Data>>;
+  dict: Dict;
+};
 
-export default function TripType({ data, setData }: TripTypeProps) {
+export default function TripType({ data, setData, dict }: TripTypeProps) {
+  const {
+    tripTypeHeading,
+    tripTypeParagraph,
+    petQuestion,
+    childrenQuestion,
+    withChildren,
+    withPets,
+    tripGroupType,
+  } = dict;
   const selectType = (id: number) =>
     setData((prev) => ({
       ...prev,
@@ -38,10 +51,8 @@ export default function TripType({ data, setData }: TripTypeProps) {
 
   return (
     <div className='mt-16 flex flex-col items-center'>
-      <h1 className='text-3xl font-bold mb-5'>
-        What kind of trip are you planning?
-      </h1>
-      <p className='text-sm text-neutral-600 mb-3'>Select one.</p>
+      <h1 className='text-3xl font-bold mb-5'>{tripTypeHeading}</h1>
+      <p className='text-sm text-neutral-600 mb-3'>{tripTypeParagraph}</p>
 
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-10'>
         {tripGroupType.map(({ id, group }) => {
@@ -75,7 +86,7 @@ export default function TripType({ data, setData }: TripTypeProps) {
 
       {(data.tripType.group.id === 3 || data.tripType.group.id === 4) && (
         <div className='space-y-5'>
-          <p className='text-center'>Are you traveling with children?</p>
+          <p className='text-center'>{childrenQuestion}</p>
           <div className='flex items-center gap-3'>
             {withChildren.map(({ id, answer }) => {
               const isSelected = id === data.tripType.children?.id;
@@ -103,7 +114,7 @@ export default function TripType({ data, setData }: TripTypeProps) {
       )}
 
       <div className='space-y-5 mt-3 mb-8'>
-        <p className='text-center'>Are you traveling with pets?</p>
+        <p className='text-center'>{petQuestion}</p>
         <div className='flex items-center gap-3'>
           {withPets.map(({ id, answer }) => {
             const isSelected = id === data.tripType.pets.id;
