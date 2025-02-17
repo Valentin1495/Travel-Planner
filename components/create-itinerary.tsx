@@ -111,10 +111,8 @@ export default function CreateItinerary({
   const isLastDay = currentDay === Number(tripLength) + 1;
 
   useEffect(() => {
-    if (days.length === 0 && currentDay === 1) {
-      createItinerary('');
-    }
-  }, [days.length, currentDay, createItinerary]);
+    createItinerary('');
+  }, [createItinerary]);
 
   return (
     <div className='flex flex-col mt-6 mx-auto max-w-6xl gap-8'>
