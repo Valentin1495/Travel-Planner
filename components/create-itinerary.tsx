@@ -112,7 +112,7 @@ export default function CreateItinerary({
 
   useEffect(() => {
     createItinerary('');
-  }, [createItinerary]);
+  }, []);
 
   return (
     <div className='flex flex-col mt-6 mx-auto max-w-6xl gap-8'>
